@@ -1,68 +1,56 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Rugido da Onça-Pintada</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hear Me Roar</title>
 
-<title>Rugido da Onça</title>
 <style>
 html, body {
   margin: 0;
-  padding: 0;
   width: 100%;
   height: 100%;
 }
 
 body {
-  background: url('jaguar-wide.jpg') no-repeat center center fixed;
-  background-size: cover;
-  overflow: hidden;
-html,body{margin:0;width:100%;height:100%}
-body{
-  background:url('jaguar-wide.jpg') center/cover no-repeat fixed;
+  background: url('jaguar-wide.jpg') center center / cover no-repeat fixed;
 }
 
-/* Área clicável em tela cheia */
-#start {
+#startBtn {
   position: fixed;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba(0,0,0,0.35);
   color: white;
+  font-size: 26px;
   font-family: Arial, sans-serif;
-  font-size: 24px;
-  text-shadow: 0 0 15px black;
-  background: rgba(0,0,0,0.25);
-#start{
-  position:fixed;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  color:white;font-size:24px;
-  background:rgba(0,0,0,.3);
+  border: none;
+  cursor: pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div id="start">TOQUE PARA OUVIR O RUGIDO 🐆</div>
-<div id="start">TOQUE PARA OUVIR 🐆</div>
+<button id="startBtn">TOQUE PARA OUVIR O RUGIDO 🐆</button>
 
-<audio id="audio" loop playsinline>
+<audio id="audio" loop playsinline preload="auto">
   <source src="Jaguar.mp3" type="audio/mpeg">
-@@ -47,13 +29,10 @@
-const start = document.getElementById('start');
+</audio>
+
+<script>
+const btn = document.getElementById('startBtn');
 const audio = document.getElementById('audio');
 
-function startAudio() {
-start.onclick = () => {
+btn.addEventListener('touchstart', () => {
   audio.play();
-  start.style.display = 'none';
-}
+  btn.style.display = 'none';
+}, { once: true });
 
-start.addEventListener('touchstart', startAudio, { once: true });
-start.addEventListener('click', startAudio, { once: true });
-};
+btn.addEventListener('click', () => {
+  audio.play();
+  btn.style.display = 'none';
+}, { once: true });
 </script>
 
 </body>
+</html>
