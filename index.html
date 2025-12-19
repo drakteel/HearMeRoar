@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hear Me Roar</title>
+<title>Rugido da Onça</title>
 
 <style>
 html, body {
@@ -16,40 +16,48 @@ body {
   background: url('jaguar-wide.jpg') center center / cover no-repeat fixed;
 }
 
-#startBtn {
+#btn {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.4);
   color: white;
   font-size: 26px;
-  font-family: Arial, sans-serif;
   border: none;
-  cursor: pointer;
+  font-family: Arial, sans-serif;
 }
 </style>
 </head>
 
 <body>
 
-<button id="startBtn">TOQUE PARA OUVIR O RUGIDO 🐆</button>
+<button id="btn">TOQUE PARA OUVIR O RUGIDO 🐆</button>
 
-<audio id="audio" loop playsinline preload="auto">
+<audio id="audio" preload="auto" loop>
   <source src="Jaguar.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const btn = document.getElementById('startBtn');
+const btn = document.getElementById('btn');
 const audio = document.getElementById('audio');
 
-btn.addEventListener('touchstart', () => {
-  audio.play();
-  btn.style.display = 'none';
-}, { once: true });
+let audioCtx;
+let source;
 
-btn.addEventListener('click', () => {
-  audio.play();
-  btn.style.display = 'none';
-}, { once: true });
+function startAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    source = audioCtx.createMediaElementSource(audio);
+    source.connect(audioCtx.destination);
+  }
+
+  audioCtx.resume().then(() => {
+    audio.play();
+    btn.style.display = 'none';
+  });
+}
+
+btn.addEventListener('touchstart', startAudio, { once: true });
+btn.addEventListener('click', startAudio, { once: true });
 </script>
 
 </body>
